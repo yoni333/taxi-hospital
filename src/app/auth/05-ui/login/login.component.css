@@ -1,0 +1,23 @@
+.login-button{
+  width:90px;
+  height:90px;
+}
+
+.sign-up-button{
+  width:60px;
+  height:60px;
+}
+
+.logout{
+  white-space:pre-wrap;
+  overflow-wrap:normal;
+  flex-flow: wrap-reverse;
+}
+
+.center{
+  text-align: center;
+}
+
+.center div{
+  margin:0.7rem;
+}

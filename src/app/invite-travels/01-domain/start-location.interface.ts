@@ -1,0 +1,1 @@
+export {IStartLocation} from '../../../../../../pych/pych-admin/src/app/admin/interfaces/i-startLocatins'

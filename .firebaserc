@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "taxi-hospital"
+  },
+  "targets": {
+    "taxi-hospital": {
+      "hosting": {
+        "taxi-hospital": [
+          "taxi-hospital"
+        ]
+      }
+    }
+  }
+}

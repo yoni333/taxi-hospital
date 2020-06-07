@@ -1,0 +1,21 @@
+<p>
+  dictionary works!
+</p>
+<section>
+<div *ngFor="let item of dictionary|async" class="row">
+  <div>
+      {{item.hebrew}}
+
+  </div>
+  <div>
+      {{item.ukrain}}
+  </div>
+  <div>
+      {{item.english}}
+  </div>
+  <div>
+      {{item.ukrainFonetic}}
+  </div>
+</div>
+
+</section>

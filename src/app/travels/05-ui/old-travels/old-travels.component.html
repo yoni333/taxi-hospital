@@ -1,0 +1,4 @@
+<p *ngIf="(getCurrentUser()|async) as user" class="title">
+  {{dictionary.PRIVATE_ARCHIVE}}
+</p>
+<app-old-travels-table [travels$]="travels$"></app-old-travels-table>

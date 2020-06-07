@@ -1,0 +1,238 @@
+<section dir="ltr">
+  <!-- <pre>
+    <div *ngFor="let item of this.names.controls">{{item.value|json}}</div>
+  </pre> -->
+  <mat-vertical-stepper [linear]="true" #stepper>
+
+    <!-- TODO center the form in the middle of screen -->
+    <!-- step 0 -->
+    <mat-step>
+      <ng-template matStepLabel>סוג נסיעה</ng-template>
+
+      <section class="is-private">
+        <span>סדירה</span>
+
+        <mat-slide-toggle (change)="travelType=$event.checked" [color]="'warn'" [checked]="true" [disabled]="false">
+          <span>פרטית</span>
+        </mat-slide-toggle>
+      </section>
+      <button mat-button mat-raised-button color="accent" matStepperNext>Next</button>
+
+    </mat-step>
+      <!-- choose   orbits -->
+      <mat-step [stepControl]="additionalDataFormGroup">
+        <ng-template matStepLabel>Choose orbit</ng-template>
+  
+        <form [formGroup]="additionalDataFormGroup">
+          <ng-container *ngIf="!travelType ;else private">
+  
+            <app-orbit-sadir-list (selectedOrbit)="selectedOrbit($event)"></app-orbit-sadir-list>
+  
+          </ng-container>
+          <ng-template #private>
+  
+            <app-orbit-private-list (selectedOrbit)="selectedOrbit($event)"> </app-orbit-private-list>
+  
+          </ng-template>
+  
+        </form>
+        <button mat-button mat-raised-button color="accent" matStepperPrevious>Back</button>
+  
+        <button mat-button mat-raised-button color="accent" matStepperNext>Next</button>
+  
+      </mat-step>
+  
+  
+      <!-- choose   start location -->
+      <ng-container *ngIf="travelType">
+        <mat-step [stepControl]="additionalDataFormGroup">
+          <ng-template matStepLabel>Choose start location</ng-template>
+  
+          <form [formGroup]="additionalDataFormGroup">
+  
+  
+  
+            <app-start-location-list (selectedStartLocation)="selectedStartLocation($event)"> </app-start-location-list>
+  
+  
+  
+          </form>
+          <button mat-button mat-raised-button color="accent" matStepperPrevious>Back</button>
+  
+          <button mat-button mat-raised-button color="accent" matStepperNext>Next</button>
+  
+        </mat-step>
+      </ng-container>
+    
+    <!-- step date and time -->
+    <mat-step [stepControl]="dateFormGroup">
+
+      <form [formGroup]="dateFormGroup">
+
+        <ng-template matStepLabel>Choose Date</ng-template>
+        <mat-form-field>
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" required disabled formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker disabled="false"></mat-datepicker>
+        </mat-form-field>
+
+        <div class="time-container"  *ngIf="travelType" >
+
+          <mat-form-field>
+            <mat-label>Hour</mat-label>
+            <mat-select formControlName="hour" required>
+              <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                {{hour.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Minute</mat-label>
+            <mat-select formControlName="minute" required>
+              <mat-option *ngFor="let minute of minutes" [value]="minute.value">
+                {{minute.label}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-button mat-raised-button color="accent" matStepperPrevious>Back</button>
+
+          <button mat-button mat-raised-button color="accent" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    
+    <!-- step names  -->
+    <mat-step [stepControl]="namesFormGroup">
+      <form [formGroup]="namesFormGroup">
+        <ng-template matStepLabel>Fill out customer name</ng-template>
+
+       
+        <ng-container formArrayName="names">
+
+          <div *ngFor="let name of names.controls; index as i">
+
+            <mat-form-field>
+              <mat-label>Customer Name</mat-label>
+              <input matInput required placeholder="customer name" type="text" [formControlName]="i">
+            </mat-form-field>
+            <button *ngIf="!travelType && i>0" mat-button color="accent" (click)="removeCustomer(i)">delete </button>
+          </div>
+
+        </ng-container>
+        <div>
+          <button mat-button mat-raised-button color="accent" matStepperPrevious>Back</button>
+          <button *ngIf="!travelType" mat-button mat-raised-button color="accent" (click)="addName()">add
+            customer</button>
+          <button mat-button mat-raised-button color="accent" matStepperNext>Next</button>
+
+        </div>
+
+      </form>
+    </mat-step>
+    <!-- step 3 - choose   car type -->
+    <ng-container *ngIf="travelType">
+      <mat-step [stepControl]="carTypeFormGroup">
+        <ng-template matStepLabel>Choose Car Type</ng-template>
+
+        <form [formGroup]="carTypeFormGroup">
+
+
+          <mat-form-field>
+            <mat-label>Car Type</mat-label>
+            <mat-select (selectionChange)="carTypeChange($event)" formControlName="carType" required>
+              <mat-option *ngFor="let carType2 of carTypes$|async" [value]="carType2.value">
+                {{carType2.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+        </form>
+        <button mat-button mat-raised-button color="accent" matStepperPrevious>Back</button>
+
+        <button mat-button mat-raised-button color="accent" matStepperNext>Next</button>
+
+      </mat-step>
+    </ng-container>
+
+
+  
+    <!-- notes step -->
+    <mat-step [stepControl]="additionalDataFormGroup">
+      <ng-template matStepLabel>Notes</ng-template>
+
+      <form [formGroup]="additionalDataFormGroup">
+
+        <mat-form-field>
+          <mat-label>notes</mat-label>
+          <textarea matInput cols="30" rows="5" formControlName="notes"></textarea>
+        </mat-form-field>
+      </form>
+      <button mat-button mat-raised-button color="accent" matStepperPrevious>Back</button>
+
+      <button mat-button mat-raised-button color="accent" matStepperNext>Next</button>
+
+    </mat-step>
+
+    <!-- view order -->
+
+    <mat-step>
+      <mat-list>
+        <div class="invite-title">
+          תאריך נסיעה
+        </div>
+        <div>
+          {{dateFormGroup.controls.date.value |date}} , {{dateFormGroup.controls.hour.value}}:
+          {{dateFormGroup.controls.minute.value}}
+        </div>
+        <div>
+          <span  class="invite-title">סוג הנסיעה :</span>
+          {{additionalDataFormGroup.controls.travelType.value ===ETravelType.private ? 'פרטית' : 'סדירה'}}
+        </div>
+        <div  class="invite-title">
+          סוג הרכב
+        </div>
+        <div>
+          {{this.carTypeFormGroup.controls.carType.value?.carTypeHebrew}}
+        </div>
+        <div  class="invite-title">
+          שמות הנוסעים:
+
+        </div>
+        <div *ngFor="let name of namesFormGroup.controls.names.value">
+          {{name}}
+        </div>
+        <div  class="invite-title">
+          שם המסלול ( ייתכן שהמסלול עצמו קצת שונה מהתיאור )
+
+        </div>
+        <div>
+          {{additionalDataFormGroup.controls.orbit.value?.orbitDescripionHebrew}} -
+          {{additionalDataFormGroup.controls.orbit.value?.orbitShortName}}
+        </div>
+        <div  class="invite-title">נקודת איסוף</div>
+        <div>
+          {{additionalDataFormGroup.controls.startLocation.value?.hebrewCity}} ,
+          {{additionalDataFormGroup.controls.startLocation.value?.hebrewAdress}}
+        </div>
+        <div class="invite-title">
+          הערות
+        </div>
+        <div>
+
+          {{additionalDataFormGroup.controls.notes.value}}</div>
+      </mat-list>
+
+      <hr>
+     
+      <button mat-button mat-raised-button color="accent" matStepperPrevious>Back</button>
+      <button mat-button mat-raised-button color="primary" (click)="saveTravel()">Invite Travel</button>
+    </mat-step>
+
+  </mat-vertical-stepper>
+</section>

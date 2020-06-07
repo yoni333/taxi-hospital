@@ -1,0 +1,38 @@
+<mat-grid-list cols=1 rowHeight="4em">
+  <mat-grid-tile rowspan=4>
+    <img src="../../../../assets/logo.png" alt="">
+  </mat-grid-tile>
+  <mat-grid-tile rowspan="2">
+    <div *ngIf="user && user.uid!==''; else showLogin" class="center">
+      <div>{{dictionary.LOGIN_AS}}: {{ user.email }}!</div>
+      <!-- <div>Hello {{ user.uid }}!</div> -->
+      <div>{{dictionary.HELLO}} {{ user.displayName }}!</div>
+      <!-- <div>Hello {{ afAuth.idToken | async  }}!</div> -->
+      <!-- <div>Hello {{ afAuth.idTokenResult | async  |json}}!</div> -->
+      <!-- <div *ngIf=" afAuth.authState | async as token">Hello {{token.uid }}!</div> -->
+
+      <button mat-button mat-fab color="warn" (click)="signOut()" class="logout">{{dictionary.LOGOUT}}</button>
+    </div>
+    <ng-template #showLogin>
+      <div *ngIf="isShowLogin">
+
+        <button mat-button mat-fab class="login-button" color="primary" (click)="login()">{{dictionary.LOGIN}}</button>
+      </div>
+      <div *ngIf="!isShowLogin">
+
+          <mat-progress-spinner
+          class="example-margin"
+          [color]="'accent'"
+          [mode]="'indeterminate'"
+          [value]="30">
+      </mat-progress-spinner>      </div>
+
+    </ng-template>
+
+
+
+  </mat-grid-tile>
+  <!-- <mat-grid-tile>
+    <button mat-button mat-mini-fab color="accent" [class.sign-up-button.em]="2">SignUp</button>
+  </mat-grid-tile> -->
+</mat-grid-list>

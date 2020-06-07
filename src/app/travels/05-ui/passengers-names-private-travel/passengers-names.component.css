@@ -1,0 +1,34 @@
+.title{
+  text-align: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    flex-direction: row;
+}
+.title img{
+  height: 50px;
+  margin: 10px;
+}
+.private-passengers , .sadir-passengers ,.orbits {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    flex-direction: column;
+    text-align:center;
+}
+.private-passengers h1{
+  font-size: 6rem;
+}
+.sadir-passengers h1{
+  font-size: 4rem;
+  margin-block-start: 0.2em;
+    margin-block-end: 0.2em;
+}

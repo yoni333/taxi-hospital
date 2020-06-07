@@ -1,0 +1,29 @@
+.time-container{
+  display: flex;
+}
+
+.time-container .mat-form-field{
+  width:90px;
+  margin:6px;
+}
+
+.is-private{
+  margin-top: 7px;
+  margin-bottom: 10px;
+ 
+}
+.is-private span{
+  margin-left: 3px;
+  margin-right: 6px;
+}
+
+.mat-list-box{
+  color:red;
+  height: 18rem;
+  overflow-y: scroll;
+  scrollbar-color: blue;
+}
+
+.invite-title{
+  font-weight: 700;
+}

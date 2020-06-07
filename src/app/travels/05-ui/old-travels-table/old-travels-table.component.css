@@ -1,0 +1,65 @@
+table {
+  width: 100%;
+}
+
+mat-row.example-detail-row {
+  min-height: 0;
+}
+
+mat-row.example-element-row:not(.example-expanded-row):hover {
+  background: #777;
+}
+
+mat-row.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.mat-column-expandedDetail{
+  background-color: #e99528;
+  text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+  
+}
+
+.example-element-description>p{
+  margin-block-start: 0.2rem;
+  margin-block-end: 0.2rem;
+}
+
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.cdk-column-driverPart{
+  justify-content: center;
+}

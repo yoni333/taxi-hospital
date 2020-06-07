@@ -1,0 +1,12 @@
+<div class="mat-list-box">
+
+  <mat-selection-list class="" required (selectionChange)="orbitChange($event.option.value)" multiple="false">
+    <ng-container *ngFor="let orbit of orbits$|async">
+
+      
+      <mat-list-option [value]="orbit.value">{{orbit.label}}</mat-list-option>
+      <mat-divider></mat-divider>
+    </ng-container>
+   
+  </mat-selection-list>
+</div>

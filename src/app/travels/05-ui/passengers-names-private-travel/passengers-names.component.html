@@ -1,0 +1,25 @@
+<div class="title">
+  <img src="../../../../assets/logo.png" alt="">
+  <h1> פייכלה נסיעות</h1>
+</div>
+
+<div [ngClass]="{'private-passengers':type===travelType.private,'sadir-passengers':type===travelType.sadir}">
+  <h1 *ngFor="let passenger of passengers|async">
+
+    {{passenger}}
+  </h1>
+</div>
+
+
+<div class="orbits">
+  <ng-container *ngIf=" (orbitNames|async) as name">
+    <h2>
+
+      {{name.orbitDescripionHebrew}}
+    </h2>
+    <h2>
+
+      {{name.orbitDescripionEnglish}}
+    </h2>
+  </ng-container>
+</div>

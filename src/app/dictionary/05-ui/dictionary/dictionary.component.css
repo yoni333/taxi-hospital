@@ -1,0 +1,12 @@
+.row{
+  display:flex;
+  justify-content: space-around;
+  border:1px lightcoral solid;
+  font-size:1.2rem;
+  padding-top:0.2rem;
+  padding-bottom:0.2rem;
+}
+section{
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+}

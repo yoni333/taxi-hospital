@@ -1,0 +1,32 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar>{{dictionary.MENU}}</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/login']" (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.LOGIN}}</a>
+      <a mat-list-item [routerLink]="['/invite-travels']" (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.INVITE_TRAVEL}}</a>
+      <a mat-list-item [routerLink]="['/next-travels']"  (click)="drawer.toggle()" routerLinkActive="router-link-active">
+      {{dictionary.NEXT_TRAVELS}}
+        <span *ngIf="(privateTravelsCounter|async) as privateCounter" class="private-counter">{{privateCounter}}</span>
+      </a>
+      <a mat-list-item [routerLink]="['/all-travels']"  (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.PRIVATE_ARCHIVE}}</a>
+      <a mat-list-item [routerLink]="['/all-sadir-travels']"  (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.SADIR_ARCHIVE}}</a>
+      <a mat-list-item [routerLink]="['/dictionary']"  (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.DICTIONARY}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span><button mat-button (click)="drawer.toggle()">{{dictionary.MENU}}</button></span>
+      <span class="version"> v.0.01</span> <span class="email">   <ng-container *ngIf="(currentUser|async) as user" >{{user.email}}</ng-container> </span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+
+    <router-outlet></router-outlet>
+    <!-- Routed components go here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
