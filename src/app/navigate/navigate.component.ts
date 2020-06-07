@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 import { AuthRepository } from '../auth/02-repository/auth-store.repository';
 import { IUserDetails } from '../auth/01-domain/user-details.interface';
 import { Store, select } from '@ngrx/store';
-import { countNextPrivateTravels, nextTravelsCounter } from '../infrastructure/ngrx-store/travels/travels.selectors';
-import { StateTravels } from '../infrastructure/ngrx-store/travels/travels.reducers';
+// import { countNextPrivateTravels, nextTravelsCounter } from '../infrastructure/ngrx-store/travels/travels.selectors';
+// import { StateTravels } from '../infrastructure/ngrx-store/travels/travels.reducers';
 import { translateService } from '../infrastructure/translate/translate.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class NavigateComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver
     , private authRepository: AuthRepository
-    , private _store: Store<StateTravels>
+    // , private _store: Store<StateTravels>
     , private translate: translateService
 
     ) {
@@ -43,7 +43,7 @@ export class NavigateComponent implements OnInit {
     }
 
     countPrivateTravels() {
-     this.privateTravelsCounter =  this._store.pipe(select(nextTravelsCounter));
+    //  this.privateTravelsCounter =  this._store.pipe(select(nextTravelsCounter));
     }
 
 }

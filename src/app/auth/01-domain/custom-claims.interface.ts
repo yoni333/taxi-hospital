@@ -1,9 +1,9 @@
 import { auth } from 'firebase';
-import { IAgent } from '../../../../../../pych/pych-admin/src/app/admin/interfaces/i-agent';
+import { IUser } from 'src/app/shared/user.interface';
 
 export interface ICustomClaims {
   role: string;
-  agent:IAgent
+  user:IUser
 }
 
 

@@ -7,7 +7,7 @@ export interface StateLogin extends IUserDetails  {
 }
 
 export const initialState: StateLogin = {
-  displayName: '', uid: '', email: '',agent:null
+  displayName: '', uid: '', email: '',user:null
 };
 
 const auth = createReducer(
@@ -17,7 +17,7 @@ const auth = createReducer(
     displayName: userDetails.displayName
       , uid: userDetails.uid
       , email: userDetails.email
-      ,agent :userDetails.agent
+      ,user :userDetails.user
 
   })),
 );

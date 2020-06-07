@@ -21,8 +21,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './infrastructure/ngrx-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { TravelsEffects } from './infrastructure/ngrx-store/travels/travels.effects';
-import { OrbitsEffects } from './infrastructure/ngrx-store/orbits/orbits.effects';
+// import { TravelsEffects } from './infrastructure/ngrx-store/travels/travels.effects';
+// import { OrbitsEffects } from './infrastructure/ngrx-store/orbits/orbits.effects';
 @NgModule({
   declarations: [
     AppComponent
@@ -33,7 +33,7 @@ import { OrbitsEffects } from './infrastructure/ngrx-store/orbits/orbits.effects
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialNavigateModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireFunctionsModule, // imports firebase/firestore, only needed for callable functions
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
@@ -46,7 +46,7 @@ import { OrbitsEffects } from './infrastructure/ngrx-store/orbits/orbits.effects
         strictActionImmutability: true,
       }
     }),
-    EffectsModule.forRoot([TravelsEffects,OrbitsEffects]),
+    // EffectsModule.forRoot([TravelsEffects,OrbitsEffects]),
 
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),

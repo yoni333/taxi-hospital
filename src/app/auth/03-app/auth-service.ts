@@ -6,25 +6,26 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 // rxjs
 import { Observable } from 'rxjs';
 import { UserCredentialsWithClaims } from '../01-domain/custom-claims.interface';
-import { take } from 'rxjs/operators';
+import { take ,map} from 'rxjs/operators';
 import { IUserDetails } from '../01-domain/user-details.interface';
 import { AuthRepository } from '../02-repository/auth-store.repository';
 import { Store } from '@ngrx/store';
-import { StateTravels } from 'src/app/infrastructure/ngrx-store/travels/travels.reducers';
-import { travelsActionEnum } from 'src/app/infrastructure/ngrx-store/travels/travels.actions';
-import { orbitsActionEnum, carsTypeActionEnum, setStartLocations, startLocationsActionEnum } from 'src/app/infrastructure/ngrx-store/orbits/orbits.actions';
-import { IAgent } from '../../../../../../pych/pych-admin/src/app/admin/interfaces/i-agent';
-import { HttpClient, HttpParams } from '@angular/common/http';
-
+// import { StateTravels } from 'src/app/infrastructure/ngrx-store/travels/travels.reducers';
+// import { travelsActionEnum } from 'src/app/infrastructure/ngrx-store/travels/travels.actions';
+// import { orbitsActionEnum, carsTypeActionEnum, setStartLocations, startLocationsActionEnum } from 'src/app/infrastructure/ngrx-store/orbits/orbits.actions';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { IUser } from 'src/app/shared/user.interface';
+import  {USERS_PATH} from 'src/app/shared/fs-path'
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _user: Observable<User | null>;
-
+  readonly USERS_PATH :string = USERS_PATH
   constructor(
     public afAuth: AngularFireAuth
     , private fns: AngularFireFunctions
+    , private fs: AngularFirestore
     , private authRepository: AuthRepository
-    , private _store: Store<StateTravels>
+    // , private _store: Store<StateTravels>
 
   ) {
     this._user = this.afAuth.user;
@@ -41,13 +42,13 @@ export class AuthService {
     this.getCurrentAuth().toPromise()
 
 
-      .then(async (user: User) => {
-        const agent = await this.getAgentData(user.uid)
+      .then(async (userFS: User) => {
+        const _user = await this.getUserData(userFS.uid)
 
-        const tmpUser: IUserDetails = { ...user, agent }
+        const tmpUser: IUserDetails = { ...userFS, user: _user }
         // console.log('getCurrentAgent:', tmpUser, agent);
 
-        const userForStore: IUserDetails = user === null ? this.emptyUser() : this.createUserObject(tmpUser);
+        const userForStore: IUserDetails = userFS === null ? this.emptyUser() : this.createUserObject(tmpUser);
         // console.log('user promise', userForStore);
         this.setStoreUserDetails(userForStore);
 
@@ -65,12 +66,12 @@ export class AuthService {
         // console.log('loginData', loginData);
 
         if (loginData.user === null) { return Promise.reject('úser is null'); }
-        const agent = await this.getAgentData(loginData.user.uid)
+        const user = await this.getUserData(loginData.user.uid)
         return <IUserDetails>{
           displayName: loginData.user.displayName,
           uid: loginData.user.uid,
           email: loginData.user.email,
-          agent
+          user
         }
       })
       .then((user: IUserDetails) => {
@@ -91,12 +92,16 @@ export class AuthService {
 
   // }
 
-  getAgentData(uid: string): Promise<IAgent> {
+  getUserData(uid: string): Promise<IUser> {
 
-    return this.fns.httpsCallable('getCurrentAgent')({ uid: uid }).toPromise().then(agent => {
-      // console.log('getCurrentAgent', agent);
-      return agent;
-    })
+    return this.fs.collection<IUser>(this.USERS_PATH,ref=>ref.where('userUID', '==' , uid)).valueChanges().pipe(
+      take(1),
+      map(userArr=>userArr[0])
+    ).toPromise()
+    // return this.fns.httpsCallable('getCurrentAgent')({ uid: uid }).toPromise().then(agent => {
+    //   // console.log('getCurrentAgent', agent);
+    //   return agent;
+    // })
 
   }
 
@@ -104,7 +109,7 @@ export class AuthService {
 
   setStoreUserDetails(user: IUserDetails): Promise<void> {
     return Promise.resolve(
-      this._store.dispatch({ type: travelsActionEnum.clearData })
+      // this._store.dispatch({ type: travelsActionEnum.clearData })
     )
       .then(() => {
         // console.log(user);
@@ -112,14 +117,14 @@ export class AuthService {
       }
       ).then(() => {
         // dispatch action that activate ngrx effects
-        this._store.dispatch({ type: travelsActionEnum.startFetchNextPrivateTravels });
-        this._store.dispatch({ type: travelsActionEnum.startFetchPrivateTravels });
-        this._store.dispatch({ type: travelsActionEnum.startFetchNextSadirTravels });
-        this._store.dispatch({ type: travelsActionEnum.startFetchSadirTravels });
-        this._store.dispatch({ type: orbitsActionEnum.startFetchOrbits });
-        this._store.dispatch({ type: orbitsActionEnum.startFetchOrbitsSadir });
-        this._store.dispatch({ type: carsTypeActionEnum.startFetchCarsType });
-        this._store.dispatch({ type: startLocationsActionEnum.startFetchStartLocations });
+        // this._store.dispatch({ type: travelsActionEnum.startFetchNextPrivateTravels });
+        // this._store.dispatch({ type: travelsActionEnum.startFetchPrivateTravels });
+        // this._store.dispatch({ type: travelsActionEnum.startFetchNextSadirTravels });
+        // this._store.dispatch({ type: travelsActionEnum.startFetchSadirTravels });
+        // this._store.dispatch({ type: orbitsActionEnum.startFetchOrbits });
+        // this._store.dispatch({ type: orbitsActionEnum.startFetchOrbitsSadir });
+        // this._store.dispatch({ type: carsTypeActionEnum.startFetchCarsType });
+        // this._store.dispatch({ type: startLocationsActionEnum.startFetchStartLocations });
       }
       );
 
@@ -141,11 +146,11 @@ export class AuthService {
       displayName: user.displayName
       , uid: user.uid
       , email: user.email
-      , agent: user.agent
+      , user: user.user
     };
   }
   emptyUser(): IUserDetails {
-    return { displayName: '', uid: '', email: '', agent: null };
+    return { displayName: '', uid: '', email: '', user: null };
   }
 
 }

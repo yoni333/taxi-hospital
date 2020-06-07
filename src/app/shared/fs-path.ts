@@ -1,0 +1,1 @@
+export const USERS_PATH:string = '/shaarei-zedek/data/users/';

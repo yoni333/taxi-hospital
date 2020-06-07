@@ -1,8 +1,8 @@
-import { IAgent } from '../../../../../../pych/pych-admin/src/app/admin/interfaces/i-agent';
+import { IUser } from 'src/app/shared/user.interface';
 
 export interface IUserDetails {
   displayName: string
   ; uid: string
   ; email: string;
-  agent:IAgent;
+  user:IUser;
 }

@@ -5,14 +5,12 @@
     <mat-toolbar>{{dictionary.MENU}}</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item [routerLink]="['/login']" (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.LOGIN}}</a>
-      <a mat-list-item [routerLink]="['/invite-travels']" (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.INVITE_TRAVEL}}</a>
+      <a mat-list-item [routerLink]="['/invite-travel']" (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.INVITE_TRAVEL}}</a>
       <a mat-list-item [routerLink]="['/next-travels']"  (click)="drawer.toggle()" routerLinkActive="router-link-active">
       {{dictionary.NEXT_TRAVELS}}
-        <span *ngIf="(privateTravelsCounter|async) as privateCounter" class="private-counter">{{privateCounter}}</span>
+        <!-- <span *ngIf="(privateTravelsCounter|async) as privateCounter" class="private-counter">{{privateCounter}}</span> -->
       </a>
-      <a mat-list-item [routerLink]="['/all-travels']"  (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.PRIVATE_ARCHIVE}}</a>
-      <a mat-list-item [routerLink]="['/all-sadir-travels']"  (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.SADIR_ARCHIVE}}</a>
-      <a mat-list-item [routerLink]="['/dictionary']"  (click)="drawer.toggle()" routerLinkActive="router-link-active">{{dictionary.DICTIONARY}}</a>
+    
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
