@@ -1,0 +1,29 @@
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.travel-container{
+  display: flex;
+  justify-content: center;
+  max-width: 400px;
+  min-width: 250px;
+  border: 1px solid black;
+}
+.header{
+  text-align: center;
+}
+.travel{
+  padding: 10px;
+}
+
+@media (max-width : 600px){
+  .container{
+    display: block;
+  }
+  .travel-container{
+    max-width: none;
+    
+  }
+
+}

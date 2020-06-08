@@ -16,15 +16,19 @@ import { Store } from '@ngrx/store';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { IUser } from 'src/app/shared/user.interface';
 import  {USERS_PATH} from 'src/app/shared/fs-path'
+import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _user: Observable<User | null>;
   readonly USERS_PATH :string = USERS_PATH
+  counterBugfix:number=0;
   constructor(
     public afAuth: AngularFireAuth
     , private fns: AngularFireFunctions
     , private fs: AngularFirestore
     , private authRepository: AuthRepository
+  ,    private router: Router,
+
     // , private _store: Store<StateTravels>
 
   ) {
@@ -35,21 +39,33 @@ export class AuthService {
 
 
   getCurrentAuth(): Observable<User> {
-    return this.afAuth.authState.pipe(take(1));
+    console.log('getCurrentAuth step a');
+
+    return this.afAuth.authState.pipe(take(1))
   }
 
+
+  
   setCurrentUser() {
     this.getCurrentAuth().toPromise()
 
 
       .then(async (userFS: User) => {
+
         const _user = await this.getUserData(userFS.uid)
-
+        
         const tmpUser: IUserDetails = { ...userFS, user: _user }
-        // console.log('getCurrentAgent:', tmpUser, agent);
+        console.log('getCurrentAuth step c',tmpUser ,_user);
+        if (_user ===undefined){
+          this.counterBugfix++
+          if(this.counterBugfix<20){
 
+            setTimeout(this.setCurrentUser.bind(this),1000)
+          }
+
+        }
         const userForStore: IUserDetails = userFS === null ? this.emptyUser() : this.createUserObject(tmpUser);
-        // console.log('user promise', userForStore);
+        console.log('getCurrentAuth step d', userForStore);
         this.setStoreUserDetails(userForStore);
 
       }).catch(console.log);
@@ -60,13 +76,18 @@ export class AuthService {
 
   }
 
-  async getAuthAfterRedirect(): Promise<IUserDetails> {
+  async getAuthAfterRedirect(): Promise<IUserDetails|void> {
     return this.afAuth.auth.getRedirectResult()
       .then(async (loginData: UserCredentialsWithClaims) => {
-        // console.log('loginData', loginData);
+        console.log('getAuthAfterRedirect step a', loginData);
 
-        if (loginData.user === null) { return Promise.reject('úser is null'); }
+        if (loginData.user === null) { 
+
+          return Promise.reject('úser is null');
+         }
         const user = await this.getUserData(loginData.user.uid)
+        console.log('getAuthAfterRedirect step b', loginData);
+
         return <IUserDetails>{
           displayName: loginData.user.displayName,
           uid: loginData.user.uid,
@@ -78,7 +99,7 @@ export class AuthService {
         this.setStoreUserDetails(user).then(() => { });
 
         return user;
-      });
+      })
 
 
   }
@@ -93,8 +114,8 @@ export class AuthService {
   // }
 
   getUserData(uid: string): Promise<IUser> {
-
-    return this.fs.collection<IUser>(this.USERS_PATH,ref=>ref.where('userUID', '==' , uid)).valueChanges().pipe(
+    
+    return this.fs.collection<IUser>(this.USERS_PATH,ref=>ref.where('userUID', '==' , uid)).valueChanges({idField:'docId'}).pipe(
       take(1),
       map(userArr=>userArr[0])
     ).toPromise()
@@ -152,5 +173,7 @@ export class AuthService {
   emptyUser(): IUserDetails {
     return { displayName: '', uid: '', email: '', user: null };
   }
+
+  
 
 }

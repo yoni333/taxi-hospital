@@ -1,0 +1,29 @@
+
+.container-form{
+  display: flex;
+  justify-content: center;
+}
+.invite-form{
+  max-width:600px;
+  min-width: 300px;
+}
+.header-form{
+  text-align: center;
+}
+
+.container{
+  /* display: flex; */
+  width: 300px;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+}
+
+.mat-form-field-infix {
+width:300px;
+}
+ .mat-button-toggle-checked {
+   background-color: #ff4081;
+ }

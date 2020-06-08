@@ -53,6 +53,7 @@ import { EffectsModule } from '@ngrx/effects';
 
  ],
  providers: [
+   
     // { provide: FUNCTIONS_ORIGIN, useValue: 'http://localhost:5001' }
     // { provide: FUNCTIONS_ORIGIN, useValue: 'https://us-central1-learnfirestore-rxjs.cloudfunctions.net' }
 

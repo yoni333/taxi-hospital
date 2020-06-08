@@ -5,5 +5,5 @@ import { IUser } from 'src/app/shared/user.interface';
 
 export const selectLoginFeature: MemoizedSelector<object, IUserDetails> = createFeatureSelector('auth');
 export const selectLoginUID: MemoizedSelector<object, string> = createSelector(selectLoginFeature, (state: StateLogin) => state.uid);
-export const selectAgent: MemoizedSelector<object, IUser> = createSelector(selectLoginFeature, (state: StateLogin) => state.user);
-export const selectAgentEmailName: MemoizedSelector<object, {email:string,displayName:string}> = createSelector(selectLoginFeature, (state: StateLogin) => ({email:state.email,displayName:state.displayName}));
+export const selectUser: MemoizedSelector<object, IUser> = createSelector(selectLoginFeature, (state: StateLogin) => state.user);
+export const selectUserEmailName: MemoizedSelector<object, {email:string,displayName:string}> = createSelector(selectLoginFeature, (state: StateLogin) => ({email:state.email,displayName:state.displayName}));

@@ -1,0 +1,18 @@
+<div *ngFor="let travelsOfDay of travels$|async">
+
+  <div *ngFor="let shifts of travelsOfDay">
+    
+  <div *ngFor="let directions of shifts" class="direction-group">
+      {{directions.metadata.day|date}}     ,  {{directions.metadata.shift|shiftHebrew}}   ,     {{directions.metadata.direction|directionHebrew}}
+
+
+    <div *ngFor="let travel of directions.data;index as index" class="travel-group">
+      <div *ngIf="index===0"></div>
+            {{travel.user.fullName}}     ,        {{travel.address}}        ,     {{travel.user.phone1}}
+
+
+      <!-- {{travel.user.address}} {{travel.user.name}}  -->
+    </div>
+
+  </div>
+</div>

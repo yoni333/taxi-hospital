@@ -1,0 +1,22 @@
+<div class="container">
+  <section>
+    <h2 class="header">הנסיעות הבאות שלך</h2>
+    <div class="travel-container" *ngFor="let item of invitation|async">
+      <div class="travel">
+        <button mat-mini-fab  color="warn" (click)="deleteTravel(item.id)">
+          <mat-icon>delete</mat-icon>
+
+        </button>
+      </div>
+      <div class="travel">
+        {{item.date}}
+      </div>
+      <div class="travel">
+        {{item.shift}}
+      </div>
+      <div class="travel">
+        {{item.direction}}
+      </div>
+    </div>
+  </section>
+</div>

@@ -167,6 +167,11 @@ export const translate =  {
    , english: 'you can not update this travel - call to Nachman'
    , ukraine: 'Вы не можете обновить эту поездку.  Для обновления звоните Нахману.'
  } as IWord,
+ PERSONAL_DETAILS : {
+   hebrew: 'פרטי קשר'
+   , english: 'Contact Details'
+   , ukraine: 'Вы не можете обновить эту поездку.  Для обновления звоните Нахману.'
+ } as IWord,
 
 
 

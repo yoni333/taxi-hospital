@@ -10,4 +10,5 @@ export interface IUser {
   neighborhood: string;
   city: string;
   photo?: string;
+  docId?:string
 }

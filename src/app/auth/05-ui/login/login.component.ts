@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   user$: Observable<StateLogin | null>;
   userSUB: Subscription;
   user: IUserDetails;
-  isShowLogin = false;
+  isShowLogin = true;
   dictionary: any = {};
   constructor(
     private router: Router,
@@ -35,13 +35,42 @@ export class LoginComponent implements OnInit, OnDestroy {
     this._auth.getAuthAfterRedirect()
       // TODO  move this dispatch to the service
 
-      .then((loginData: IUserDetails) => this.navigateToNextTravels());
+      .then((loginData: IUserDetails) => {
+        console.log('lodin data', loginData);
+
+        if (loginData === undefined || loginData.user === null) {
+          this.isShowLogin = true;
+          console.log('isShowLogin', this.isShowLogin);
+          this.ngZone.run(() =>this.isShowLogin=true)
+
+          return Promise.reject();
+        } else {
+
+          this.navigateToNextTravels()
+        }
+      }).catch(e=>{
+        this.isShowLogin = true;
+        console.log('isShowLogin', this.isShowLogin);
+
+
+      })
   }
   getCurrentAuth() {
     // we do it because
-    this._auth.getCurrentAuth().subscribe(user => { this.isShowLogin = true; 
-      // console.log('user', user);
-     });
+    this._auth.getCurrentAuth().subscribe(user => {
+      console.log('getCurrentAuth step b',user);
+      
+      this.isShowLogin = true;
+      if (user === undefined || user === null) {
+        this.ngZone.run(() =>this.isShowLogin=true)
+        
+      }else{{
+        this.isShowLogin = false;
+        this._auth.getAuthAfterRedirect();
+      }}
+
+      console.log('isShowLogin', this.isShowLogin);
+    });
   }
 
   login() {

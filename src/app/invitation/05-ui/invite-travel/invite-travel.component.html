@@ -1,0 +1,41 @@
+<div class="container-form">
+
+  <div [formGroup]="inviteFormGroup"  class="invite-form">
+    <h3 class="header-form">הזמנת נסיעה</h3>
+    <mat-form-field class="container">
+      <!-- <button mat-raised-button color="accent" (click)="picker.open()">תאריכון</button>
+       -->
+       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+      <input matInput formControlName="date" [matDatepicker]="picker" placeholder="בחר תאריך" >
+      <mat-datepicker  #picker></mat-datepicker>
+    </mat-form-field>
+    <p>
+
+    </p>
+    <p class="container">
+      <mat-button-toggle-group formControlName="shift" name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="third">לילה</mat-button-toggle>
+        <mat-button-toggle value="second">ערב</mat-button-toggle>
+        <mat-button-toggle value="first">בוקר</mat-button-toggle>
+      </mat-button-toggle-group>
+    </p>
+    <p class="container">
+      <mat-button-toggle-group formControlName="direction" name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="toWork">איסוף</mat-button-toggle>
+        <mat-button-toggle value="toHome">פיזור</mat-button-toggle>
+      </mat-button-toggle-group>
+    </p>
+    <mat-form-field class="container">
+      <input  matInput formControlName="address"   placeholder="הכנס כתובת" >
+      <!-- <button (click)="allowChangeAdress(address)">אחר..</button> -->
+    </mat-form-field>
+    <br>
+    <p class="center">
+
+      <button mat-raised-button color="primary" (click)="invite()">בצע הזמנה</button>
+    </p>
+  </div>
+</div>
+
+<!-- {{inviteFormGroup.value|json}} -->

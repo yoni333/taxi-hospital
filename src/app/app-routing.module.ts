@@ -14,6 +14,12 @@ import { AuthService } from './auth/03-app/auth-service';
 // import { PassengersNamesComponent } from './travels/05-ui/passengers-names-private-travel/passengers-names.component';
 // import { OldTravelsTableComponent } from './travels/05-ui/old-travels-table/old-travels-table.component';
 import { AuthGuardGuard } from './auth/03-app/auth-guard.guard';
+import { InviteTravelComponent } from './invitation/05-ui/invite-travel/invite-travel.component';
+import { NextTravelsComponent } from './invitation/05-ui/next-travels/next-travels/next-travels.component';
+import { AdminComponent } from './invitation/05-ui/admin/admin.component';
+import { PersonalDetailsComponent } from './auth/05-ui/personal-details/personal-details.component';
+import { ShiftPipe } from './invitation/05-ui/pipes/shift.pipe';
+import { DirectionPipe } from './invitation/05-ui/pipes/direction.pipe';
 // import { DictionaryComponent } from './dictionary/05-ui/dictionary/dictionary.component';
 // import { OldSadirTravelsComponent } from './travels/05-ui/old-sadir-travels/old-sadir-travels.component';
 // import { SadirTravelsService } from './travels/03-app/sadir-travels.service';
@@ -27,9 +33,10 @@ import { AuthGuardGuard } from './auth/03-app/auth-guard.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent }
-  // , { path: 'invite-travel', component: InviteTravelComponent, canActivate: [AuthGuardGuard] }
-  // , { path: 'next-travels', component: NextTravelsComponent, canActivate: [AuthGuardGuard] }
-  // , { path: 'all-travels', component: OldTravelsComponent, canActivate: [AuthGuardGuard] }
+  , { path: 'invite-travel', component: InviteTravelComponent, canActivate: [AuthGuardGuard] }
+  , { path: 'next-travels', component: NextTravelsComponent, canActivate: [AuthGuardGuard] }
+  , { path: 'admin', component: AdminComponent, canActivate: [AuthGuardGuard] }
+  , { path: 'personal-details', component: PersonalDetailsComponent, canActivate: [AuthGuardGuard] }
   // , { path: 'all-sadir-travels', component: OldSadirTravelsComponent, canActivate: [AuthGuardGuard] }
   // , { path: 'passengers-names', component: PassengersNamesComponent, canActivate: [AuthGuardGuard] }
   // , { path: 'dictionary', component: DictionaryComponent, canActivate: [AuthGuardGuard] }
@@ -46,18 +53,13 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [
     LoginComponent
-    // , OldTravelsComponent
-    // , OldTravelsTableComponent
-    // , OldSadirTravelsComponent
-    // , NextTravelsComponent
-    // , NextTravelsTableComponent
-    // , PassengersNamesComponent
+    ,InviteTravelComponent
+    ,AdminComponent
+    ,PersonalDetailsComponent
+     , NextTravelsComponent
+     ,ShiftPipe
+     ,DirectionPipe
    
-    // , DictionaryComponent
-    // , InviteTravelComponent
-    // , OrbitPrivateListComponent
-    // ,OrbitSadirListComponent
-    // , StartLocationsComponent
   ],
   providers: [
     AuthService

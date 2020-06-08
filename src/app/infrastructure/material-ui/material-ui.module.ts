@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatTableModule, MatSelectModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
+import {  MatSelectModule } from '@angular/material/select';
+import {  MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -14,6 +16,7 @@ import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MatMomentDateModule, MAT_MO
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { MatIconModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -31,6 +34,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     , MatSelectModule
     , MatDividerModule
     , MatListModule
+    , MatButtonToggleModule
+    ,MatIconModule
 
   ]
   , providers: [
@@ -51,6 +56,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     , MatSelectModule
     , MatDividerModule
     , MatListModule
+    ,MatButtonToggleModule
+    , MatIconModule
 
   ]
 })

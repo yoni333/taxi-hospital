@@ -1,0 +1,35 @@
+<div class="container-form" dir="rtl">
+
+  <div [formGroup]="userForm"  class="invite-form">
+    <h3 class="header-form">עדכון פרטים אישיים</h3>
+    
+    <mat-form-field class="container">
+      <input  matInput formControlName="city"   placeholder="הכנס עיר" >
+      <!-- <button (click)="allowChangeAdress(address)">אחר..</button> -->
+    </mat-form-field>
+    <mat-form-field class="container">
+      <input  matInput formControlName="address"   placeholder="הכנס כתובת" >
+      <!-- <button (click)="allowChangeAdress(address)">אחר..</button> -->
+    </mat-form-field>
+    <mat-form-field class="container">
+      <input  matInput formControlName="neighborhood"   placeholder="הכנס שכונה" >
+      <!-- <button (click)="allowChangeAdress(address)">אחר..</button> -->
+    </mat-form-field>
+    <mat-form-field class="container">
+      <input  matInput formControlName="phone1"   placeholder="הכנס טלפון" >
+      <!-- <button (click)="allowChangeAdress(address)">אחר..</button> -->
+    </mat-form-field>
+    <mat-form-field class="container">
+      <input  matInput formControlName="fullName"   placeholder="הכנס שם מלא" >
+      <!-- <button (click)="allowChangeAdress(address)">אחר..</button> -->
+    </mat-form-field>
+    
+    <br>
+    <p class="center">
+
+      <button mat-raised-button color="primary" (click)="updateDetails()">עדכן פרטים</button>
+    </p>
+  </div>
+</div>
+
+<!-- {{inviteFormGroup.value|json}} -->
